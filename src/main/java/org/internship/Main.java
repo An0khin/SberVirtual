@@ -36,18 +36,11 @@ public class Main {
 
         cities.forEach(System.out::println);
 
-        int max = Integer.MIN_VALUE;
-        int maxIndex = 0;
+        List<String> regions = cities.stream().map(City::getRegion).distinct().toList();
 
-        for(int i = 0; i < cities.size(); i++) {
-            City curCity = cities.get(i);
-
-            if(curCity.getPopulation() > max) {
-                max = curCity.getPopulation();
-                maxIndex = i;
-            }
+        for(String region : regions) {
+            long count = cities.stream().filter(city -> city.getRegion().equals(region)).count();
+            System.out.printf("%s - %s\n", region, count);
         }
-
-        System.out.printf("[%s] = %s", maxIndex, max);
     }
 }
