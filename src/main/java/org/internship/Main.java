@@ -4,7 +4,6 @@ import org.internship.model.City;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,21 +36,18 @@ public class Main {
 
         cities.forEach(System.out::println);
 
+        int max = Integer.MIN_VALUE;
+        int maxIndex = 0;
 
-        Comparator<City> comparatorByNameReversed = Comparator
-                .comparing((City city) -> city.getName().toLowerCase())
-                .reversed();
+        for(int i = 0; i < cities.size(); i++) {
+            City curCity = cities.get(i);
 
-        Comparator<City> comparatorByDistrictAndNameReversed = Comparator
-                .comparing((City city) -> city.getDistrict())
-                .thenComparing(city -> city.getName())
-                .reversed();
+            if(curCity.getPopulation() > max) {
+                max = curCity.getPopulation();
+                maxIndex = i;
+            }
+        }
 
-
-        cities.sort(comparatorByNameReversed);
-        cities.forEach(System.out::println);
-
-        cities.sort(comparatorByDistrictAndNameReversed);
-        cities.forEach(System.out::println);
+        System.out.printf("[%s] = %s", maxIndex, max);
     }
 }
